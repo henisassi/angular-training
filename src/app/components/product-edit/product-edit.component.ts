@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ProductEditComponent implements OnInit {
   productId:number;
   pformGroup?:FormGroup;
+  submitted:boolean=false;
   constructor(private activatedRoute: ActivatedRoute,private productService:ProductsService,private formBuilder:FormBuilder) {
     this.productId=activatedRoute.snapshot.params.id;
   }
