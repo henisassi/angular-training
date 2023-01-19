@@ -1,3 +1,4 @@
+import { EventDriverService } from 'src/app/services/event.driver.service';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
@@ -10,28 +11,31 @@ import { ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes } from '.
 })
 export class ProductListComponent implements OnInit {
   @Input() productsInput$: Observable<AppDataState<Product[]>>|null=null;
-  @Output() productEventEmitter:EventEmitter<ActionEvent> =new EventEmitter<ActionEvent>();
+  //@Output() productEventEmitter:EventEmitter<ActionEvent> =new EventEmitter<ActionEvent>();
   readonly DataStateEnum = DataStateEnum;
-  constructor() { }
+  constructor(private eventDrivenService:EventDriverService) { }
 
   ngOnInit(): void {
   }
-
+/*
   onSelect(p:Product){
-    this.productEventEmitter.emit({type:ProductActionsTypes.SELECT_PRODUCTS,payload:p});
+    //this.productEventEmitter.emit({type:ProductActionsTypes.SELECT_PRODUCTS,payload:p});
+    this.eventDrivenService.publishEvent({type:ProductActionsTypes.SELECT_PRODUCTS,payload:p});
 
   }
 
   onDelete(p:Product){
-    this.productEventEmitter.emit({type:ProductActionsTypes.DELETE_PRODUCTS,payload:p});
+    //this.productEventEmitter.emit({type:ProductActionsTypes.DELETE_PRODUCTS,payload:p});
+    this.eventDrivenService.publishEvent({type:ProductActionsTypes.DELETE_PRODUCTS,payload:p});
   }
 
   onEdit(p:Product){
-    this.productEventEmitter.emit({type:ProductActionsTypes.EDIT_PRODUCTS,payload:p});
+    //this.productEventEmitter.emit({type:ProductActionsTypes.EDIT_PRODUCTS,payload:p});
+    this.eventDrivenService.publishEvent({type:ProductActionsTypes.EDIT_PRODUCTS,payload:p});
   }
 
-  onActionEvent($event: ActionEvent){
+ /* onActionEvent($event: ActionEvent){
     this.productEventEmitter.emit($event);
-  }
+  }*/
 
 }
